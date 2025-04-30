@@ -1,0 +1,30 @@
+#########################################################################
+""" 
+ TCPClient.py
+816019037 - Brandon Rampersad  
+  
+ """
+import socket
+
+ClientSocket = socket.socket()
+host = '127.0.0.1'
+port = input('Enter Port for sending key: ')
+
+print('Waiting for connection')
+try:
+    ClientSocket.connect((host, int(port)))
+except socket.error as e:
+    print(str(e))
+
+Response = ClientSocket.recv(1024)
+print(Response.decode('utf-8'))
+while True:
+    Input = input('Say Something: ')
+    ClientSocket.send(str.encode(Input))
+    Response = ClientSocket.recv(1024)
+    print(Response.decode('utf-8'))
+
+ClientSocket.close()
+
+'''
+'''
